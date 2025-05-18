@@ -1,0 +1,93 @@
+{% extends 'artifacts/base.html' %}
+
+{% block content %}
+<div class="dashboard-summary-container">
+  <h2>📊 Dashboard Summary</h2>
+
+  <ul class="dashboard-summary-list">
+    <li><strong>Total Artifacts:</strong> <span class="text-primary">{{ total_artifacts }}</span></li>
+    <li><strong>Total Unique Origins:</strong> <span class="text-info">{{ total_origins }}</span></li>
+    <li><strong>Oldest Artifact:</strong>
+      {% if oldest_artifact %}
+        <span class="text-success">{{ oldest_artifact.name }}</span>
+        <small class="text-muted">(Discovered on {{ oldest_artifact.date_found }})</small>
+      {% else %}
+        <span class="text-muted">No artifacts yet.</span>
+      {% endif %}
+    </li>
+  </ul>
+
+  <div class="back-home-link-container">
+    <a href="{% url 'home' %}" class="btn-back-home">← Back to Home</a>
+  </div>
+</div>
+
+<style>
+  .dashboard-summary-container {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #fdfdfd;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    font-family: 'Inter', sans-serif;
+  }
+
+  .dashboard-summary-container h2 {
+    text-align: center;
+    color: #343a40;
+    margin-bottom: 25px;
+  }
+
+  .dashboard-summary-list {
+    list-style: none;
+    padding: 0;
+    font-size: 18px;
+    line-height: 1.6;
+  }
+
+  .text-primary {
+    color: #007bff;
+  }
+
+  .text-info {
+    color: #17a2b8;
+  }
+
+  .text-success {
+    color: #28a745;
+  }
+
+  .text-muted {
+    color: #6c757d;
+  }
+
+  .back-home-link-container {
+    text-align: center;
+    margin-top: 30px;
+  }
+
+  .btn-back-home {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #b7950b;
+    color: #2e0a47;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    user-select: none;
+    border: 2px solid transparent;
+  }
+
+  .btn-back-home:hover,
+  .btn-back-home:focus {
+    background-color: transparent;
+    color: #1b2a41;
+    border-color: #1b2a41;
+    box-shadow: 0 0 10px rgba(27, 42, 65, 0.4);
+    outline: none;
+  }
+</style>
+{% endblock %}

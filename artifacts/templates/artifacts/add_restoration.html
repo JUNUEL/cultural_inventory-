@@ -1,0 +1,86 @@
+{% extends 'artifacts/base.html' %}
+
+{% block content %}
+<div class="add-restoration-container">
+  <h2 class="page-title">Add Restoration for <em>{{ artifact.name }}</em></h2>
+
+  <form method="post" class="add-restoration-form">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-save">Save Restoration</button>
+  </form>
+
+  <a href="{% url 'artifact_detail' artifact.id %}" class="btn btn-back"> Back to Artifact</a>
+</div>
+
+<style>
+  .add-restoration-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    font-family: 'Inter', sans-serif;
+    color: #2c2c2c;
+  }
+
+  .page-title {
+    color: #1b2a41;
+    margin-bottom: 20px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+  }
+
+  form.add-restoration-form {
+    margin-bottom: 20px;
+  }
+
+  .btn {
+    display: inline-block;
+    background-color: #b7950b; /* gold */
+    color: #1b2a41; /* dark blue-gray */
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 10px 22px;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    text-decoration: none;
+    user-select: none;
+    box-shadow: 0 4px 6px rgba(183,149,11,0.4);
+  }
+
+  .btn:hover,
+  .btn:focus {
+    background-color: transparent;
+    color: #b7950b;
+    border-color: #b7950b;
+    outline: none;
+    box-shadow: 0 0 10px #b7950b;
+  }
+
+  .btn-back {
+    padding: 8px 16px;
+    margin-top: 20px;
+  }
+
+  form.add-restoration-form p {
+    margin-bottom: 12px;
+    font-size: 1rem;
+  }
+
+  form.add-restoration-form input,
+  form.add-restoration-form select,
+  form.add-restoration-form textarea {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-family: 'Inter', sans-serif;
+  }
+</style>
+{% endblock %}

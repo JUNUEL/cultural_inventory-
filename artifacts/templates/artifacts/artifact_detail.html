@@ -1,0 +1,152 @@
+<!-- artifacts/templates/artifacts/artifact_detail.html -->
+{% extends 'artifacts/base.html' %}
+
+{% block content %}
+<div class="artifact-detail-container">
+  <a href="{% url 'artifact_list' %}" class="btn btn-back">
+    &larr; Back to Artifacts List
+  </a>
+
+  <h2 class="artifact-title">{{ artifact.name }}</h2>
+
+  {% if artifact.image %}
+    <img src="{{ artifact.image.url }}" alt="{{ artifact.name }}" class="artifact-image">
+  {% endif %}
+
+  <div class="artifact-info">
+    <p><strong>Origin:</strong> {{ artifact.origin }}</p>
+    <p><strong>Date Found:</strong> {{ artifact.date_found }}</p>
+    <p><strong>Description:</strong></p>
+    <p class="artifact-description">{{ artifact.description }}</p>
+  </div>
+
+  <hr>
+
+  <div class="section">
+    <h3>Inventory Tracking</h3>
+    <a href="{% url 'update_inventory' artifact.id %}" class="btn btn-update">
+      Update Inventory
+    </a>
+    {% if artifact.inventory %}
+      <p><strong>Current Location:</strong> {{ artifact.inventory.location }}</p>
+      <p><strong>Condition:</strong> {{ artifact.inventory.get_condition_display }}</p>
+    {% else %}
+      <p class="text-muted">No inventory information available.</p>
+    {% endif %}
+  </div>
+
+  <hr>
+
+  <div class="section">
+    <h3>Restoration History</h3>
+    <a href="{% url 'add_restoration' artifact.id %}" class="btn btn-add">
+      + Add Restoration Entry
+    </a>
+    <ul class="restoration-list">
+      {% for restoration in artifact.restorations.all %}
+        <li>
+          <strong>{{ restoration.restoration_date }}</strong>: {{ restoration.description }}
+          {% if restoration.restored_by %}
+            <em class="text-muted">(by {{ restoration.restored_by }})</em>
+          {% endif %}
+        </li>
+      {% empty %}
+        <li class="text-muted">No restorations recorded.</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+
+<style>
+  .artifact-detail-container {
+    max-width: 800px;
+    margin: 60px auto;
+    padding: 40px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    font-family: 'Inter', sans-serif;
+    color: #2c2c2c;
+  }
+
+  .artifact-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.25rem;
+    margin-bottom: 25px;
+    border-bottom: 3px solid #b7950b;
+    padding-bottom: 10px;
+    color: #1b2a41;
+  }
+
+  .artifact-image {
+    max-width: 100%;
+    border-radius: 10px;
+    margin-bottom: 25px;
+  }
+
+  .artifact-info {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+  }
+
+  .artifact-description {
+    margin-top: 5px;
+    font-style: italic;
+    padding-left: 10px;
+    color: #444;
+  }
+
+  .section {
+    margin-top: 30px;
+  }
+
+  .btn {
+    display: inline-block;
+    background-color: #b7950b; /* gold */
+    color: #1b2a41; /* dark blue-gray */
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 10px 22px;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    text-decoration: none;
+    user-select: none;
+    box-shadow: 0 4px 6px rgba(183,149,11,0.4);
+  }
+
+  .btn:hover,
+  .btn:focus {
+    background-color: transparent;
+    color: #b7950b;
+    border-color: #b7950b;
+    outline: none;
+    box-shadow: 0 0 10px #b7950b;
+  }
+
+  .btn-back {
+    margin-bottom: 25px;
+  }
+
+  .restoration-list {
+    padding-left: 20px;
+    list-style-type: disc;
+  }
+
+  .restoration-list li {
+    margin-bottom: 10px;
+  }
+
+  .text-muted {
+    color: #6c757d;
+    font-style: italic;
+  }
+
+  hr {
+    margin: 30px 0;
+    border: none;
+    border-top: 1px solid #ddd;
+  }
+</style>
+{% endblock %}

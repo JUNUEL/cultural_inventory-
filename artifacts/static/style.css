@@ -1,0 +1,143 @@
+/* Styles for the home page */
+.hero-section {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    border-radius: 12px;
+    margin-bottom: 3rem;
+}
+
+.hero-title {
+    font-size: 2.5rem;
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.hero-subtitle {
+    font-size: 1.2rem;
+    color: #5d6d7e;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.new-artifacts-section {
+    margin-bottom: 3rem;
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1.8rem;
+    color: #2c3e50;
+    margin-bottom: 2rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #eaecef;
+}
+
+.artifact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.artifact-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.artifact-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.artifact-image-container {
+    height: 200px;
+    overflow: hidden;
+}
+
+.artifact-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.artifact-card:hover .artifact-image {
+    transform: scale(1.05);
+}
+
+.artifact-info {
+    padding: 1.5rem;
+}
+
+.artifact-name {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.2rem;
+}
+
+.artifact-name a {
+    color: #2c3e50;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.artifact-name a:hover {
+    color: #3498db;
+}
+
+.artifact-origin {
+    color: #7f8c8d;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.artifact-date {
+    color: #95a5a6;
+    font-size: 0.85rem;
+    font-style: italic;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 2rem;
+    color: #95a5a6;
+    grid-column: 1 / -1;
+}
+
+.cta-section {
+    text-align: center;
+    margin-top: 3rem;
+}
+
+.cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.8rem;
+    background-color: #3498db;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(52, 152, 219, 0.2);
+}
+
+.cta-button:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(52, 152, 219, 0.3);
+}
+
+.arrow {
+    transition: transform 0.3s ease;
+}
+
+.cta-button:hover .arrow {
+    transform: translateX(3px);
+}

@@ -1,0 +1,91 @@
+{% extends 'artifacts/base.html' %}
+
+{% block content %}
+<div class="update-inventory-container">
+  <h2 class="page-title">📦 Update Inventory for <em>{{ artifact.name }}</em></h2>
+
+  <form method="post" class="update-inventory-form">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-save"> Save</button>
+  </form>
+
+  <a href="{% url 'artifact_detail' artifact.id %}" class="btn btn-back"> Back to Artifact Detail</a>
+</div>
+
+<style>
+  .update-inventory-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    font-family: 'Inter', sans-serif;
+    color: #2c2c2c;
+  }
+
+  .page-title {
+    color: #1b2a41;
+    margin-bottom: 20px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+  }
+
+  form.update-inventory-form {
+    margin-bottom: 20px;
+  }
+
+  /* Buttons: use your .btn styling */
+
+  .btn {
+    display: inline-block;
+    background-color: #b7950b; /* gold */
+    color: #1b2a41; /* dark blue-gray */
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 10px 22px;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    text-decoration: none;
+    user-select: none;
+    box-shadow: 0 4px 6px rgba(183,149,11,0.4);
+  }
+
+  .btn:hover,
+  .btn:focus {
+    background-color: transparent;
+    color: #b7950b;
+    border-color: #b7950b;
+    outline: none;
+    box-shadow: 0 0 10px #b7950b;
+  }
+
+  /* Separate back button with smaller padding */
+  .btn-back {
+    padding: 8px 16px;
+    margin-top: 15px;
+  }
+
+  /* Optional: style form fields for consistency */
+  form.update-inventory-form p {
+    margin-bottom: 12px;
+    font-size: 1rem;
+  }
+
+  form.update-inventory-form input,
+  form.update-inventory-form select,
+  form.update-inventory-form textarea {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-family: 'Inter', sans-serif;
+  }
+
+</style>
+{% endblock %}

@@ -1,0 +1,147 @@
+{% extends 'artifacts/base.html' %}
+
+{% block content %}
+<form method="post" enctype="multipart/form-data" class="artifact-form">
+  {% csrf_token %}
+
+  {% if form.non_field_errors %}
+    <div class="form-errors">
+      {{ form.non_field_errors }}
+    </div>
+  {% endif %}
+
+  {% for field in form %}
+    <div class="form-group">
+      <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+      {{ field }}
+      {% if field.help_text %}
+        <small class="help-text">{{ field.help_text }}</small>
+      {% endif %}
+      {% if field.errors %}
+        <small class="field-error">{{ field.errors|striptags }}</small>
+      {% endif %}
+    </div>
+  {% endfor %}
+
+  <div class="form-actions">
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a href="{% url 'artifact_list' %}" class="btn btn-secondary">Cancel</a>
+  </div>
+</form>
+
+<style>
+  .artifact-form {
+    background-color: #ffffff;
+    padding: 30px 35px;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    max-width: 600px;
+    margin: 0 auto;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    font-family: 'Inter', sans-serif;
+  }
+
+  .form-group {
+    margin-bottom: 24px;
+  }
+
+  .form-group label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 8px;
+    color: #1b2a41;
+  }
+
+  .artifact-form input,
+  .artifact-form select,
+  .artifact-form textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1.5px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: border-color 0.3s ease;
+  }
+
+  .artifact-form input:focus,
+  .artifact-form select:focus,
+  .artifact-form textarea:focus {
+    outline: none;
+    border-color: #1b2a41;
+    box-shadow: 0 0 8px rgba(27, 42, 65, 0.4);
+  }
+
+  .help-text {
+    display: block;
+    color: #777;
+    margin-top: 4px;
+    font-size: 0.875rem;
+  }
+
+  .field-error {
+    color: #e74c3c;
+    font-size: 0.875rem;
+    margin-top: 4px;
+    display: block;
+  }
+
+  .form-errors {
+    color: #e74c3c;
+    margin-bottom: 20px;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  .form-actions {
+    margin-top: 30px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .btn {
+    display: inline-block;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 10px 24px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    user-select: none;
+    border: 2px solid transparent;
+    font-family: 'Inter', sans-serif;
+    background-color: #b7950b; /* gold */
+    color: #1b2a41; /* dark blue-gray */
+    box-shadow: 0 4px 6px rgba(183,149,11,0.4);
+  }
+
+  .btn:hover,
+  .btn:focus {
+    background-color: transparent;
+    color: #b7950b;
+    border-color: #b7950b;
+    box-shadow: 0 0 10px #b7950b;
+    outline: none;
+  }
+
+  /* Differentiate secondary button */
+  .btn-secondary {
+    margin-left: 15px;
+    background-color: #1b2a41; /* dark blue-gray */
+    color: #b7950b; /* gold */
+    border-color: #b7950b;
+    box-shadow: 0 4px 6px rgba(27,42,65,0.4);
+  }
+
+  .btn-secondary:hover,
+  .btn-secondary:focus {
+    background-color: transparent;
+    color: #1b2a41;
+    border-color: #1b2a41;
+    box-shadow: 0 0 10px #1b2a41;
+    outline: none;
+  }
+</style>
+{% endblock %}

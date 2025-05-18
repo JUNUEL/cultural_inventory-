@@ -1,0 +1,98 @@
+<!-- artifacts/templates/artifacts/confirm_delete.html -->
+{% extends 'artifacts/base.html' %}
+
+{% block content %}
+<div class="confirm-delete-container">
+  <h2 class="delete-title">Delete Artifact</h2>
+
+  <p class="delete-message">
+    Are you sure you want to permanently delete <strong>"{{ artifact.name }}"</strong>?
+  </p>
+
+  <form method="post" class="delete-form">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-delete">Confirm Deletion</button>
+    <a href="{% url 'artifact_list' %}" class="btn btn-cancel">Cancel</a>
+  </form>
+</div>
+
+<style>
+  .confirm-delete-container {
+    max-width: 600px;
+    margin: 60px auto;
+    padding: 35px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    color: #2c2c2c;
+  }
+
+  .delete-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    border-bottom: 3px solid #b7950b; /* gold */
+    padding-bottom: 10px;
+    margin-bottom: 25px;
+    color: #1b2a41; /* dark blue-gray */
+    user-select: none;
+  }
+
+  .delete-message {
+    font-size: 1.125rem;
+    margin: 20px 0 35px;
+    color: #333;
+  }
+
+  .delete-form {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .btn {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 12px 26px;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.07);
+    border: 2px solid transparent;
+    user-select: none;
+  }
+
+  .btn-delete {
+    background-color: #8b0000; /* dark red */
+    color: #fff;
+    border-color: #8b0000;
+    box-shadow: 0 4px 10px rgba(139, 0, 0, 0.5);
+  }
+  .btn-delete:hover,
+  .btn-delete:focus {
+    background-color: #600000;
+    border-color: #600000;
+    box-shadow: 0 0 12px #600000;
+    outline: none;
+  }
+
+  .btn-cancel {
+    background-color: #b7950b; /* gold */
+    color: #1b2a41; /* dark blue-gray */
+    border-color: #b7950b;
+    box-shadow: 0 4px 10px rgba(183, 149, 11, 0.5);
+  }
+  .btn-cancel:hover,
+  .btn-cancel:focus {
+    background-color: transparent;
+    color: #b7950b;
+    border-color: #b7950b;
+    box-shadow: 0 0 12px #b7950b;
+    outline: none;
+  }
+</style>
+{% endblock %}

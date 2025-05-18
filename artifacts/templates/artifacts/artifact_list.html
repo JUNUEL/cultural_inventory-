@@ -1,0 +1,232 @@
+<!-- artifacts/templates/artifacts/artifact_list.html -->
+{% extends 'artifacts/base.html' %}
+
+{% block content %}
+<div class="artifact-list-container">
+
+  <div class="action-links">
+    <a href="{% url 'home' %}" class="btn btn-secondary">← Back to Home</a>
+    <a href="{% url 'artifact_create' %}" class="btn btn-success">➕ Add Artifact</a>
+  </div>
+
+  <h2 class="section-title" style="margin-bottom: 20px;">📚 Artifact List</h2>
+
+  <!-- Filter Form -->
+  <form method="get" class="filter-form">
+    <label for="year">Year:</label>
+    <select name="year" id="year" class="filter-select">
+      <option value="">-- Select Year --</option>
+      {% for y in year_options %}
+        <option value="{{ y }}" {% if request_get.year|stringformat:"s" == y|stringformat:"s" %}selected{% endif %}>{{ y }}</option>
+      {% endfor %}
+    </select>
+
+    <label for="start_year">From:</label>
+    <select name="start_year" id="start_year" class="filter-select">
+      <option value="">-- Start Year --</option>
+      {% for y in year_options %}
+        <option value="{{ y }}" {% if request_get.start_year|stringformat:"s" == y|stringformat:"s" %}selected{% endif %}>{{ y }}</option>
+      {% endfor %}
+    </select>
+
+    <label for="end_year">To:</label>
+    <select name="end_year" id="end_year" class="filter-select">
+      <option value="">-- End Year --</option>
+      {% for y in year_options %}
+        <option value="{{ y }}" {% if request_get.end_year|stringformat:"s" == y|stringformat:"s" %}selected{% endif %}>{{ y }}</option>
+      {% endfor %}
+    </select>
+
+    <button type="submit" class="btn btn-primary btn-filter">Filter</button>
+    <a href="{% url 'artifact_list' %}" class="filter-reset">Reset</a>
+  </form>
+
+  <ul class="artifact-list">
+    {% for artifact in artifacts %}
+      <li class="artifact-item">
+        {% if artifact.image %}
+          <img src="{{ artifact.image.url }}" alt="{{ artifact.name }}" class="artifact-list-image" />
+        {% endif %}
+        <div class="artifact-details">
+          <strong class="artifact-name">
+            <a href="{% url 'artifact_detail' artifact.id %}" class="artifact-link">
+              {{ artifact.name }}
+            </a>
+          </strong>
+          <p class="artifact-meta">
+            ({{ artifact.origin }}){% if artifact.date_found %} — <em>Discovered on {{ artifact.date_found }}</em>{% endif %}
+          </p>
+          <div class="artifact-actions">
+            <a href="{% url 'artifact_update' artifact.id %}" class="action-link edit-link">✏️ Edit</a>
+            <a href="{% url 'artifact_delete' artifact.id %}" class="action-link delete-link">🗑️ Delete</a>
+          </div>
+        </div>
+      </li>
+    {% empty %}
+      <li class="empty-message">No artifacts found for the selected year(s).</li>
+    {% endfor %}
+  </ul>
+
+</div>
+
+<style>
+  .artifact-list-container {
+    font-family: 'Inter', sans-serif;
+    color: #2c2c2c;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .action-links {
+    margin-bottom: 20px;
+  }
+
+  .action-links .btn {
+    margin-right: 12px;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.9rem;
+    color: #1b2a41;
+    user-select: none;
+  }
+
+  .filter-form {
+    background-color: #fff;
+    padding: 18px 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    align-items: center;
+  }
+
+  .filter-form label {
+    font-weight: 600;
+    color: #004080;
+  }
+
+  .filter-select {
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    min-width: 120px;
+    font-size: 1rem;
+  }
+
+  .btn-filter {
+    padding: 8px 18px;
+  }
+
+  .filter-reset {
+    color: #004080;
+    font-weight: 600;
+    margin-left: 10px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  .filter-reset:hover,
+  .filter-reset:focus {
+    color: #007bff;
+    outline: none;
+  }
+
+  .artifact-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .artifact-item {
+    display: flex;
+    gap: 20px;
+    background: white;
+    padding: 18px 20px;
+    margin-bottom: 25px;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+    align-items: flex-start;
+    transition: box-shadow 0.3s ease;
+  }
+  .artifact-item:hover,
+  .artifact-item:focus-within {
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    outline: none;
+  }
+
+  .artifact-list-image {
+    max-width: 150px;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+
+  .artifact-details {
+    flex: 1;
+  }
+
+  .artifact-name {
+    font-size: 1.25rem;
+    margin-bottom: 8px;
+  }
+
+  .artifact-link {
+    color: #004080;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+  }
+  .artifact-link:hover,
+  .artifact-link:focus {
+    color: #b7950b;
+    text-decoration: underline;
+    outline: none;
+  }
+
+  .artifact-meta {
+    margin: 4px 0 12px;
+    color: #555;
+  }
+
+  .artifact-actions {
+    font-size: 0.9rem;
+  }
+
+  .action-link {
+    margin-right: 16px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    font-weight: 600;
+  }
+  .edit-link {
+    color: #007bff;
+  }
+  .edit-link:hover,
+  .edit-link:focus {
+    color: #0056b3;
+    outline: none;
+  }
+  .delete-link {
+    color: #dc3545;
+  }
+  .delete-link:hover,
+  .delete-link:focus {
+    color: #a71d2a;
+    outline: none;
+  }
+
+  .empty-message {
+    text-align: center;
+    color: #666;
+    font-style: italic;
+    padding: 30px 0;
+  }
+</style>
+{% endblock %}
